@@ -15,6 +15,12 @@ public class Product {
   private String description;
   private LocalDate created;
 
+  public static Product from(ProductRequest request, Integer id) {
+    Product product = from(request);
+    product.setId(id);
+    return product;
+  }
+
   public static Product from(ProductRequest request) {
     Product product = new Product();
     product.setName(request.getName());

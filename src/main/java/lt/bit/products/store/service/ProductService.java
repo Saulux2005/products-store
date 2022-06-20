@@ -2,6 +2,7 @@ package lt.bit.products.store.service;
 
 import java.util.List;
 import lt.bit.products.store.model.Product;
+import lt.bit.products.store.model.ProductItems;
 import lt.bit.products.store.model.ProductRequest;
 import org.flywaydb.core.api.ErrorCode;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,11 @@ import javax.xml.bind.ValidationException;
 public class ProductService {
 
     private final ProductRepository repository;
+    private final ProductItemsRepository productItemsRepository;
 
-    public ProductService(ProductRepository repository) {
+    public ProductService(ProductRepository repository, ProductItemsRepository productItemsRepository) {
         this.repository = repository;
+        this.productItemsRepository = productItemsRepository;
     }
 
     public List<Product> findProducts() {
@@ -35,4 +38,9 @@ public class ProductService {
     public Product saveProduct(Product product) {
         return repository.save(product);
     }
+
+    public ProductItems getProductItems(Integer productId) {
+        return productItemsRepository.findById(productId).orElse(null);
+    }
+
 }
