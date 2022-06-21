@@ -51,6 +51,11 @@ class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @GetMapping("/count")
+    long countProducts() {
+        return service.countProducts();
+    }
+
     @GetMapping(ID_MAPPING + "/items")
     ResponseEntity<ProductItems> fetchProductItems(@PathVariable("id") Integer productId) {
         ProductItems items = service.getProductItems(productId);

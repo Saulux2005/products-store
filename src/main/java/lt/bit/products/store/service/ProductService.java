@@ -5,6 +5,7 @@ import lt.bit.products.store.model.Product;
 import lt.bit.products.store.model.ProductItems;
 import lt.bit.products.store.model.ProductRequest;
 import org.flywaydb.core.api.ErrorCode;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,12 +27,18 @@ public class ProductService {
         return repository.findAll();
     }
 
+    public long countProducts() {
+        return repository.count();
+    }
+
     public Product findProduct(Integer id) {
         return repository.findById(id).orElse(null);
     }
 
     public void deleteProduct(Integer id) {
-        repository.deleteStoreItems(id);
+//        repository.deleteStoreItems(id);
+        productItemsRepository.deleteAllByProductId(id);
+//        productItemsRepository.deleteById(id); veikia maniskis - virsuje destytojo
         repository.deleteById(id);
     }
 

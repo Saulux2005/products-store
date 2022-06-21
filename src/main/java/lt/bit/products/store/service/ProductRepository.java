@@ -14,4 +14,6 @@ interface ProductRepository extends JpaRepository<Product, Integer> {
 //    @Query(value = "delete from ProductItem p where p.id = ?1")
     void deleteStoreItems(Integer productId);
 
+
+
 }
