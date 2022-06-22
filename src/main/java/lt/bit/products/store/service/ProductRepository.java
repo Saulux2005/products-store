@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Modifying
     @Query(value = "DELETE FROM store_items WHERE product_id = ?1", nativeQuery = true)
