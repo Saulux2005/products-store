@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 @Component
 public class Production {
@@ -43,17 +44,16 @@ public class Production {
     void addNewProducts() {
         LOG.info("Production job started");
         LOG.info("Adding products...");
-        LOG.info("numberOfNewProducts " + numberOfNewProducts);
+
+        LOG.info("IP: " + Arrays.toString(ipAddressNumbers));
 
         for (int i = 0; i < numberOfNewProducts; i++) {
             Product generatedProduct = createProduct(i + 1);
             productRepository.save(generatedProduct);
-            LOG.info("i= " + i + " ->  quantity: " + generateQuantity(i));
-            LOG.info("i= " + i + " -> " + generatedProduct);
+            LOG.info("Generated quantity for i={} -> {}", i, generateQuantity(i));
+            LOG.info("i=" + i + " -> " + generatedProduct + " - SAVED!");
         }
-
         LOG.info("Generated price: {}", generatePrice());
-
     }
 
     private Product createProduct(int i) {
@@ -90,8 +90,15 @@ public class Production {
 
     private BigDecimal generatePrice() {
 
-        return new BigDecimal(LocalDateTime.now().format(DateTimeFormatter.ofPattern("m.s")));
-//            LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        // 1
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("m.s");
+        return new BigDecimal(now.format(formatter));
+//       2
+//        return new BigDecimal(LocalDateTime.now().format(DateTimeFormatter.ofPattern("m.s")));
+
+//        3
+        //            LocalDateTime now = LocalDateTime.now();
 //            int min = (now.getMinute());
 //            int sec = (now.getSecond());
 //        return new BigDecimal(String.format("%d.%d", min, sec));
